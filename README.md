@@ -16,7 +16,7 @@ Action ToEnv is a GitHub Action that writes given environment variables to a .en
 
 ## Security
 
-For better security it is recommended to pin actions to a full length commit SHA.
+For better security it is recommended to audit the code and pin actions to a full length commit SHA.
 
 Read more on
 [using third-party actions](https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#using-third-party-actions)
