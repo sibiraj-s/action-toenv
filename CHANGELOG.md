@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v1.0.2 (2024-10-21)
+
+#### Enhancements
+
+- Log the path of the env file
+
 ## v1.0.1 (2024-10-21)
 
 #### Enhancements
