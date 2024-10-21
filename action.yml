@@ -1,0 +1,26 @@
+name: Action ToEnv
+description: GitHub Action that writes given environment variables to .env file
+author: sibiraj-s
+
+branding:
+  icon: edit-3
+  color: gray-dark
+
+# Define your inputs here.
+inputs:
+  env:
+    description: Environment variables to write in .env file
+    required: true
+    default: ''
+  envpath:
+    description: Path to the .env file. defaults to current working directory
+    default: ''
+
+# Define your outputs here.
+outputs:
+  envpath:
+    description: Path to the written .env file
+
+runs:
+  using: node20
+  main: dist/index.js
