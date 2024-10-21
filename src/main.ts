@@ -33,6 +33,7 @@ export async function run(): Promise<void> {
 
     await fs.writeFile(envFilePath, envFile);
     core.setOutput('envpath', envFilePath);
+    core.info(`Wrote environment variables to: ${envFilePath}`);
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message);
   }

@@ -25697,6 +25697,7 @@ async function run() {
             .join('\n') + '\n';
         await promises_1.default.writeFile(envFilePath, envFile);
         core.setOutput('envpath', envFilePath);
+        core.info(`Wrote environment variables to: ${envFilePath}`);
     }
     catch (error) {
         if (error instanceof Error)
