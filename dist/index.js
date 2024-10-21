@@ -25672,16 +25672,30 @@ const promises_1 = __importDefault(__nccwpck_require__(1455));
 const node_path_1 = __importDefault(__nccwpck_require__(6760));
 const core = __importStar(__nccwpck_require__(7484));
 const defaultEnvFilePath = node_path_1.default.join(process.cwd(), '.env');
+async function ensureDir(dir) {
+    const dirExists = await promises_1.default
+        .access(dir)
+        .then(() => true)
+        .catch(() => false);
+    if (!dirExists)
+        await promises_1.default.mkdir(dir, { recursive: true });
+}
+const getEnvFilePath = () => {
+    const inputPath = core.getInput('envpath');
+    if (!inputPath)
+        return defaultEnvFilePath;
+    return node_path_1.default.resolve(process.cwd(), inputPath);
+};
 async function run() {
     try {
         const env = core.getMultilineInput('env');
-        const inputPath = core.getInput('envpath');
-        const envFilePath = inputPath ? node_path_1.default.resolve(process.cwd(), inputPath) : defaultEnvFilePath;
+        const envFilePath = getEnvFilePath();
+        await ensureDir(node_path_1.default.dirname(envFilePath));
         const envFile = env
             .map(line => line.split('='))
             .map(([key, value]) => `${key}=${value}`)
-            .join('\n');
-        await promises_1.default.writeFile(envFilePath, envFile + '\n');
+            .join('\n') + '\n';
+        await promises_1.default.writeFile(envFilePath, envFile);
         core.setOutput('envpath', envFilePath);
     }
     catch (error) {

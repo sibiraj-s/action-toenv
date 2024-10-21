@@ -4,18 +4,34 @@ import * as core from '@actions/core';
 
 const defaultEnvFilePath = path.join(process.cwd(), '.env');
 
+async function ensureDir(dir: string): Promise<void> {
+  const dirExists = await fs
+    .access(dir)
+    .then(() => true)
+    .catch(() => false);
+  if (!dirExists) await fs.mkdir(dir, { recursive: true });
+}
+
+const getEnvFilePath = (): string => {
+  const inputPath = core.getInput('envpath');
+  if (!inputPath) return defaultEnvFilePath;
+  return path.resolve(process.cwd(), inputPath);
+};
+
 export async function run(): Promise<void> {
   try {
     const env = core.getMultilineInput('env');
-    const inputPath = core.getInput('envpath');
-    const envFilePath = inputPath ? path.resolve(process.cwd(), inputPath) : defaultEnvFilePath;
+    const envFilePath = getEnvFilePath();
 
-    const envFile = env
-      .map(line => line.split('='))
-      .map(([key, value]) => `${key}=${value}`)
-      .join('\n');
+    await ensureDir(path.dirname(envFilePath));
 
-    await fs.writeFile(envFilePath, envFile + '\n');
+    const envFile =
+      env
+        .map(line => line.split('='))
+        .map(([key, value]) => `${key}=${value}`)
+        .join('\n') + '\n';
+
+    await fs.writeFile(envFilePath, envFile);
     core.setOutput('envpath', envFilePath);
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message);
