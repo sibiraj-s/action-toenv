@@ -27,7 +27,7 @@ export async function run(): Promise<void> {
 
     const envFile =
       env
-        .map(line => line.split('='))
+        .map(line => line.split(/=(.*)/))
         .map(([key, value]) => `${key}=${value}`)
         .join('\n') + '\n';
 

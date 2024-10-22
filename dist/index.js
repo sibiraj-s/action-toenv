@@ -25692,7 +25692,7 @@ async function run() {
         const envFilePath = getEnvFilePath();
         await ensureDir(node_path_1.default.dirname(envFilePath));
         const envFile = env
-            .map(line => line.split('='))
+            .map(line => line.split(/=(.*)/))
             .map(([key, value]) => `${key}=${value}`)
             .join('\n') + '\n';
         await promises_1.default.writeFile(envFilePath, envFile);

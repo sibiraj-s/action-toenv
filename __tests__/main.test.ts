@@ -20,7 +20,7 @@ describe('action', () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation((name: string): string[] => {
       if (name === 'env') {
-        return ['FOO=BAR', 'BAZ=QUX'];
+        return ['FOO=BAR', 'BAZ=QUX', 'EMPTY=', 'SOME=OTHER=VALUE'];
       }
       return [];
     });
@@ -30,7 +30,7 @@ describe('action', () => {
 
     const envFilePath = setOutputMock.mock.calls[0][1];
     const envFile = await fs.readFile(envFilePath, 'utf8');
-    expect(envFile).toBe('FOO=BAR\nBAZ=QUX\n');
+    expect(envFile).toBe('FOO=BAR\nBAZ=QUX\nEMPTY=\nSOME=OTHER=VALUE\n');
 
     // Verify that all of the core library functions were called correctly
     expect(setOutputMock).toHaveBeenNthCalledWith(1, 'envpath', expect.any(String));
