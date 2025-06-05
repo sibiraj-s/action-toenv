@@ -30,6 +30,7 @@
     "package:watch": "npm run package -- --watch",
     "test": "npx vitest",
     "all": "npm run format:write && npm run test && npm run package",
+    "lint": "oxlint .",
     "prepare": "husky"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "commitlint-config-non-conventional": "^1.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
+    "oxlint": "^0.17.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vitest": "^3.2.1"
