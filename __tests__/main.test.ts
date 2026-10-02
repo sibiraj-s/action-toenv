@@ -8,8 +8,13 @@ import * as main from '../src/main';
 const runMock = vi.spyOn(main, 'run');
 
 // Mock the GitHub Actions core library
-const getInputMock = vi.spyOn(core, 'getMultilineInput').mockReturnValue([]);
-const setOutputMock = vi.spyOn(core, 'setOutput').mockImplementation(() => {});
+vi.mock('@actions/core', async importOriginal => {
+  const actual = await importOriginal<typeof import('@actions/core')>();
+  return { ...actual, getMultilineInput: vi.fn(() => []), setOutput: vi.fn() };
+});
+
+const getInputMock = vi.mocked(core.getMultilineInput);
+const setOutputMock = vi.mocked(core.setOutput);
 
 describe('action', () => {
   beforeEach(() => {

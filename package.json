@@ -34,18 +34,18 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^3.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@types/node": "^22.15.29",
-    "@vercel/ncc": "^0.38.3",
+    "@commitlint/cli": "^21.2.3",
+    "@types/node": "^26.6.4",
+    "@vercel/ncc": "^0.45.0",
     "commitlint-config-non-conventional": "^1.0.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.0",
-    "oxlint": "^0.17.0",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.3",
+    "lint-staged": "^17.6.0",
+    "oxlint": "^1.86.0",
+    "prettier": "^3.9.9",
+    "typescript": "^6.0.3",
     "vitest": "^5.0.3"
   }
 }

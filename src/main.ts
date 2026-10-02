@@ -2,8 +2,6 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
 
-const defaultEnvFilePath = path.join(process.cwd(), '.env');
-
 async function ensureDir(dir: string): Promise<void> {
   const dirExists = await fs
     .access(dir)
@@ -13,8 +11,7 @@ async function ensureDir(dir: string): Promise<void> {
 }
 
 const getEnvFilePath = (): string => {
-  const inputPath = core.getInput('envpath');
-  if (!inputPath) return defaultEnvFilePath;
+  const inputPath = core.getInput('envpath') || '.env';
   return path.resolve(process.cwd(), inputPath);
 };
 
